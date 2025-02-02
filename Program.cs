@@ -1,11 +1,9 @@
-using S10266891D_PRG2Assignment;
-//===========================
-//Name: 
-//ID:
-//Name: Kavin Balaji
-//ID: S10269279A
-//============================
-
+using S102266891D_PRG2Assignment;
+//=========================================
+// Student Number: S10266891D
+// Student Name: Sakthivel Murugan Pranesh
+// Partner Name: Kamalkannan Kavin Balaji
+//=========================================
 
 Dictionary<string, Airline> airlineDictionary = new Dictionary<string, Airline>();
 Dictionary<string, BoardingGate> boardingGates = new Dictionary<string, BoardingGate>();
@@ -14,6 +12,7 @@ Dictionary<string, Flight> flights = new Dictionary<string, Flight>();
 LoadAirlines(airlineDictionary);
 LoadBoardingGates(boardingGates);
 LoadFlights(flights, airlineDictionary);
+
 
 while (true)
 {
@@ -49,7 +48,7 @@ while (true)
     else if (option == "6")
     {
         ListFlightsForAirline(airlineDictionary);
-        ModifyFlightDetails(flights, airlineDictionary);
+        ModifyFlightDetails(flights,airlineDictionary);
     }
     else if (option == "7")
     {
@@ -59,6 +58,11 @@ while (true)
     {
         ProcessUnassignedFlights(flights, boardingGates);
     }
+    else if (option == "9")
+    {
+        CheckUnassignedBoardingGates(flights);
+        DisplayTotalFee(flights,airlineDictionary);
+    }
     else
     {
         Console.WriteLine("Invalid option, please try again.");
@@ -66,7 +70,7 @@ while (true)
 
     Console.WriteLine();
 }
-
+    
 
 static void DisplayMenu()
 {
@@ -190,8 +194,6 @@ static void LoadFlights(Dictionary<string, Flight> flights, Dictionary<string, A
 }
 
 
-
-
 static void ListFlightsInformation(Dictionary<string, Flight> flights, Dictionary<string, Airline> airlineDictionary)
 {
     Console.WriteLine("==================================================");
@@ -201,7 +203,7 @@ static void ListFlightsInformation(Dictionary<string, Flight> flights, Dictionar
 
     foreach (var flight in flights.Values)
     {
-        string airlineCode = flight.FlightNumber.Substring(0, 2);
+        string airlineCode = flight.FlightNumber.Substring(0, 2);  
         string airlineName = airlineDictionary.ContainsKey(airlineCode) ? airlineDictionary[airlineCode].Name : "Unknown Airline";
         string formattedTime = flight.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt");
 
@@ -321,6 +323,7 @@ static void CreateFlight(Dictionary<string, Flight> flights)
         Console.WriteLine("Flight number already exists.");
     }
 }
+
 static void DisplayFlightDetailsFromAirline(Dictionary<string, Airline> airlines, Dictionary<string, BoardingGate> boardingGates)
 {
     Console.WriteLine("==================================================");
@@ -411,7 +414,7 @@ static void DisplayFlightDetailsFromAirline(Dictionary<string, Airline> airlines
 
 
 
-
+// For the Modify Section
 static void ListFlightsForAirline(Dictionary<string, Airline> airlines)
 {
     Console.WriteLine("==================================================");
@@ -474,7 +477,7 @@ static void ModifyFlightDetails(Dictionary<string, Flight> flights, Dictionary<s
     if (flights.ContainsKey(flightNumber))
     {
         Flight selectedFlight = flights[flightNumber];
-        Airline flightAirline = airlines[selectedFlight.FlightNumber.Substring(0, 2)];
+        Airline flightAirline = airlines[selectedFlight.FlightNumber.Substring(0, 2)]; 
 
         Console.WriteLine("What would you like to modify?");
         Console.WriteLine("1. Modify Basic Information");
@@ -517,16 +520,16 @@ static void ModifyFlightDetails(Dictionary<string, Flight> flights, Dictionary<s
             }
         }
 
-
+      
         Console.WriteLine("Flight updated!");
         Console.WriteLine("Flight Number: " + selectedFlight.FlightNumber);
-        Console.WriteLine("Airline Name: " + flightAirline.Name);
+        Console.WriteLine("Airline Name: " + flightAirline.Name);  
         Console.WriteLine("Origin: " + selectedFlight.Origin);
         Console.WriteLine("Destination: " + selectedFlight.Destination);
         Console.WriteLine("Expected Departure/Arrival Time: " + selectedFlight.ExpectedTime.ToString("dd/MM/yyyy h:mm tt"));
         Console.WriteLine("Status: " + selectedFlight.Status);
-        Console.WriteLine("Special Request Code: " + selectedFlight.SpecialRequestCode);
-        Console.WriteLine("Boarding Gate: " + selectedFlight.BoardingGate);
+        Console.WriteLine("Special Request Code: " + selectedFlight.SpecialRequestCode);  
+        Console.WriteLine("Boarding Gate: " + selectedFlight.BoardingGate);  
     }
     else
     {
@@ -547,7 +550,7 @@ static void DisplayFlightSchedule(Dictionary<string, Flight> flights)
     }
 }
 
-//First Advanced Feature (Q1)
+//Advanced Feature Kavin Balaji (A)
 static void ProcessUnassignedFlights(Dictionary<string, Flight> flights, Dictionary<string, BoardingGate> boardingGates)
 {
     Console.WriteLine("==================================================");
@@ -610,6 +613,8 @@ static BoardingGate FindMatchingGate(Flight flight, Dictionary<string, BoardingG
     else
     {
         return boardingGates.Values.FirstOrDefault(g => g.Flight == null && !g.SupportsCFFT && !g.SupportsDDJB && !g.SupportsLWTT);
+    }
+}
     }
 }
         
