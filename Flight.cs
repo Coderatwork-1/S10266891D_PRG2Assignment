@@ -10,91 +10,118 @@ namespace Programming_II_Assignment;
 // Student Name: Sakthivel Murugan Pranesh
 // Partner Name: Kamalkannan Kavin Balaji
 //=============================================================
-public class Flight : IComparable<Flight>
-{
-    public string FlightNumber { get; set; }
-    public Airline Airline { get; set; }
-    public string Origin { get; set; }
-    public string Destination { get; set; }
-    public DateTime ExpectedTime { get; set; }
-    public string Status { get; set; }
-    public string SpecialRequestCode { get; set; }
-    public string BoardingGate { get; set; }
-
-    public Flight(string flightNumber, Airline airline, string origin, string destination, DateTime expectedTime, string status = "Scheduled")
+    public class Flight
     {
-        FlightNumber = flightNumber;
-        Airline = airline;
-        Origin = origin;
-        Destination = destination;
-        ExpectedTime = expectedTime;
-        Status = status;
-    }
+        public string FlightNumber { get; set; }
+        public string Origin { get; set; }
+        public string Destination { get; set; }
+        public DateTime ExpectedTime { get; set; }
+        public string Status { get; set; }
+        public string SpecialRequestCode { get; set; }
+        public string BoardingGate { get; set; }
 
-    public int CompareTo(Flight other)
-    {
-        return ExpectedTime.CompareTo(other.ExpectedTime);
-    }
-
-    public override string ToString()
-    {
-        return $"{FlightNumber}\t{Airline.Name}\t{Origin}\t{Destination}\t{ExpectedTime:dd/MM/yyyy hh:mm tt}\t{Status}\t{BoardingGate ?? "Unassigned"}";
-    }
-
-    // NORMFlight Class
-    public class NORMFlight : Flight
-    {
-        public override double CalculateFees()
+        public Flight(string fn, string ori, string dest, DateTime et, string status = "On Time")
         {
-            
+            FlightNumber = fn;
+            Origin = ori;
+            Destination = dest;
+            ExpectedTime = et;
+            Status = status;
+        }
+
+        public virtual double CalculateFees()
+        {
+            return 100.0;
         }
 
         public override string ToString()
         {
-            return base.ToString() + ", Type: Normal";
+            return $"Flight: {FlightNumber}\tOrigin: {Origin}\tDestination: {Destination}\tExpectedTime: {ExpectedTime}\tStatus: {Status}";
         }
     }
 
-    // CFFTFlight Class
-    public class CFFTFlight : Flight
+    //DDJBFLight
+    class DDJBFlight : Flight
     {
+        public DDJBFlight(string fn, string ori, string dest, DateTime et)
+            : base(fn, ori, dest, et)
+        {
+        }
+
         public override double CalculateFees()
         {
-            
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + ", Type: CFFT";
+            double fee = 0;
+            if (Origin == "Singapore (SIN)")
+                fee += 800;
+            if (Destination == "Singapore (SIN)")
+                fee += 500;
+            fee += 300;
+            fee += 300;
+            return fee;
         }
     }
 
-    // LWTFlight Class
-    public class LWTFlight : Flight
+
+    // LWTTFFight
+    class LWTTFlight : Flight
     {
+        public LWTTFlight(string fn, string ori, string dest, DateTime et)
+            : base(fn, ori, dest, et)
+        {
+        }
+
         public override double CalculateFees()
         {
-           
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + ", Type: LWT";
+            double fee = 0;
+            if (Origin == "Singapore (SIN)")
+                fee += 800;
+            if (Destination == "Singapore (SIN)")
+                fee += 500;
+            fee += 300;
+            fee += 500;
+            return fee;
         }
     }
 
-    // DDJFlight Class
-    public class DDJFlight : Flight
+    // NormalFlight
+    class NormalFlight : Flight
     {
+        public NormalFlight(string fn, string ori, string dest, DateTime et)
+            : base(fn, ori, dest, et)
+        {
+        }
+
         public override double CalculateFees()
         {
-         
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + ", Type: DDJ";
+            double fee = 0;
+            if (Origin == "Singapore (SIN)")
+                fee += 800;
+            if (Destination == "Singapore (SIN)")
+                fee += 500;
+            fee += 300;
+            return fee;
         }
     }
 
+    // CFFTFLight
+    class CFFTFlight : Flight
+    {
+        public CFFTFlight(string fn, string ori, string dest, DateTime et)
+            : base(fn, ori, dest, et)
+        {
+        }
+
+        public override double CalculateFees()
+        {
+            double fee = 0;
+            if (Origin == "Singapore (SIN)")
+                fee += 800;
+            if (Destination == "Singapore (SIN)")
+                fee += 500;
+            fee += 300;
+            fee += 150;
+            return fee;
+        }
+    }
+}
 
