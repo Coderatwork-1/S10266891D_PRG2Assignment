@@ -216,3 +216,90 @@ static void ListBoardingGates(Dictionary<string, BoardingGate> boardingGates)
             gate.GateName, gate.SupportsDDJB ? "True" : "False", gate.SupportsCFFT ? "True" : "False", gate.SupportsLWTT ? "True" : "False");
     }
 }
+static void AssignBoardingGate(Dictionary<string, Flight> flights, Dictionary<string, BoardingGate> boardingGates)
+{
+    Console.WriteLine("==================================================");
+    Console.WriteLine("Assigning a Boarding Gate to a Flight");
+    Console.WriteLine("==================================================");
+
+    Console.WriteLine("Enter Flight Number:");
+    string flightNumber = Console.ReadLine().ToUpper();
+
+    if (flights.ContainsKey(flightNumber))
+    {
+        Flight selectedFlight = flights[flightNumber];
+        Console.WriteLine($"Available Boarding Gates:");
+        ListBoardingGates(boardingGates);
+
+        Console.WriteLine("Enter Boarding Gate Name:");
+        string gateName = Console.ReadLine().ToUpper();
+
+        if (boardingGates.ContainsKey(gateName))
+        {
+            BoardingGate selectedGate = boardingGates[gateName];
+
+            if (selectedGate.Flight == null)
+            {
+                selectedGate.Flight = selectedFlight;
+                Console.WriteLine($"Flight {flightNumber} has been assigned to gate {gateName}.");
+            }
+            else
+            {
+                Console.WriteLine($"Gate {gateName} is already assigned to another flight.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid gate name.");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid flight number.");
+    }
+}
+
+static void CreateFlight(Dictionary<string, Flight> flights)
+{
+
+    Console.WriteLine("Enter Flight Number:");
+    string flightNumber = Console.ReadLine().ToUpper();
+
+    if (!flights.ContainsKey(flightNumber))
+    {
+        Console.WriteLine("Enter Origin:");
+        string origin = Console.ReadLine();
+        Console.WriteLine("Enter Destination:");
+        string destination = Console.ReadLine();
+        Console.WriteLine("Enter Expected Departure Time (YYYY-MM-DD HH:MM):");
+        string timeInput = Console.ReadLine();
+
+        if (DateTime.TryParse(timeInput, out DateTime expectedTime))
+        {
+            Console.WriteLine("Enter Special Request Code (NORM, DDJB, CFFT, LWTT):");
+            string requestCode = Console.ReadLine().ToUpper();
+
+            Flight newFlight;
+
+            if (requestCode == "DDJB")
+            {
+                newFlight = new DDJBFlight(flightNumber, origin, destination, expectedTime);
+            }
+            else if (requestCode == "CFFT")
+            {
+                newFlight = new CFFTFlight(flightNumber, origin, destination, expectedTime);
+            }
+            else if (requestCode == "LWTT")
+            {
+                newFlight = new LWTTFlight(flightNumber, origin, destination, expectedTime);
+            }
+            else
+            {
+                newFlight = new NormalFlight(flightNumber, origin, destination, expectedTime);
+            }
+
+            flights[flightNumber] = newFlight;
+
+
+            Console.WriteLine($"Flight {flightNumber} successfully created!");
+        }
