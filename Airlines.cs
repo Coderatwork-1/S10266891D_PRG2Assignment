@@ -11,12 +11,46 @@ using System.Threading.Tasks;
 namespace Programming_II_Assignment;
     public class Airline
 {
-    public string Code { get; set; }
-    public string Name { get; set; }
+            public string Code { get; set; }
+            public string Name { get; set; }
+            public Dictionary<string, Flight> Flights { get; private set; } = new Dictionary<string, Flight>();
 
-    public Airline(string code, string name)
-    {
-        Code = code;
-        Name = name;
-    }
-}
+
+            public Airline(string c, string n)
+            {
+                Code = c;
+                Name = n;
+            }
+
+            public bool AddFlight(Flight flight)
+            {
+                if (!Flights.ContainsKey(flight.FlightNumber))
+                {
+                    Flights[flight.FlightNumber] = flight;
+                    return true;
+                }
+                return false;
+            }
+
+            public double CalculateFees()
+            {
+                double total = 0;
+                foreach (var flight in Flights.Values)
+                {
+                    total += flight.CalculateFees();
+                }
+                return total;
+            }
+
+            public bool RemoveFlight(Flight flight)
+            {
+                return Flights.Remove(flight.FlightNumber);
+            }
+
+            public override string ToString()
+            {
+                return "Code: " + Code +
+                    "\tName: " + Name;
+            }
+       }
+ }
