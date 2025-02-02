@@ -3,126 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//=============================================================
+//=========================================
 // Student Number: S10266891D
 // Student Name: Sakthivel Murugan Pranesh
 // Partner Name: Kamalkannan Kavin Balaji
-//=============================================================
+//=========================================
 
-namespace Assignment
+namespace S102266891D_PRG2Assignment
 {
-    public class Flight
+    public class Airline
     {
-        public string FlightNumber { get; set; }
-        public string Origin { get; set; }
-        public string Destination { get; set; }
-        public DateTime ExpectedTime { get; set; }
-        public string Status { get; set; }
-        public string SpecialRequestCode { get; set; }
-        public string BoardingGate { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public Dictionary<string, Flight> Flights { get; private set; } = new Dictionary<string, Flight>();
 
-        public Flight(string fn, string ori, string dest, DateTime et, string status = "On Time")
+
+        public Airline(string c, string n)
         {
-            FlightNumber = fn;
-            Origin = ori;
-            Destination = dest;
-            ExpectedTime = et;
-            Status = status;
+            Code = c;
+            Name = n;
         }
 
-        public virtual double CalculateFees()
+        public bool AddFlight(Flight flight)
         {
-            return 100.0;
+            if (!Flights.ContainsKey(flight.FlightNumber))
+            {
+                Flights[flight.FlightNumber] = flight;
+                return true;
+            }
+            return false;
+        }
+
+        public double CalculateFees()
+        {
+            double total = 0;
+            foreach (var flight in Flights.Values)
+            {
+                total += flight.CalculateFees();
+            }
+            return total;
+        }
+
+        public bool RemoveFlight(Flight flight)
+        {
+            return Flights.Remove(flight.FlightNumber);
         }
 
         public override string ToString()
         {
-            return $"Flight: {FlightNumber}\tOrigin: {Origin}\tDestination: {Destination}\tExpectedTime: {ExpectedTime}\tStatus: {Status}";
-        }
-    }
-
-    //DDJBFLight
-    class DDJBFlight : Flight
-    {
-        public DDJBFlight(string fn, string ori, string dest, DateTime et)
-            : base(fn, ori, dest, et)
-        {
-        }
-
-        public override double CalculateFees()
-        {
-            double fee = 0;
-            if (Origin == "Singapore (SIN)")
-                fee += 800;
-            if (Destination == "Singapore (SIN)")
-                fee += 500;
-            fee += 300;
-            fee += 300;
-            return fee;
-        }
-    }
-
-
-    // LWTTFFight
-    class LWTTFlight : Flight
-    {
-        public LWTTFlight(string fn, string ori, string dest, DateTime et)
-            : base(fn, ori, dest, et)
-        {
-        }
-
-        public override double CalculateFees()
-        {
-            double fee = 0;
-            if (Origin == "Singapore (SIN)")
-                fee += 800;
-            if (Destination == "Singapore (SIN)")
-                fee += 500;
-            fee += 300;
-            fee += 500;
-            return fee;
-        }
-    }
-
-    // NormalFlight
-    class NormalFlight : Flight
-    {
-        public NormalFlight(string fn, string ori, string dest, DateTime et)
-            : base(fn, ori, dest, et)
-        {
-        }
-
-        public override double CalculateFees()
-        {
-            double fee = 0;
-            if (Origin == "Singapore (SIN)")
-                fee += 800;
-            if (Destination == "Singapore (SIN)")
-                fee += 500;
-            fee += 300;
-            return fee;
-        }
-    }
-
-    // CFFTFLight
-    class CFFTFlight : Flight
-    {
-        public CFFTFlight(string fn, string ori, string dest, DateTime et)
-            : base(fn, ori, dest, et)
-        {
-        }
-
-        public override double CalculateFees()
-        {
-            double fee = 0;
-            if (Origin == "Singapore (SIN)")
-                fee += 800;
-            if (Destination == "Singapore (SIN)")
-                fee += 500;
-            fee += 300;
-            fee += 150;
-            return fee;
+            return "Code: " + Code +
+                "\tName: " + Name;
         }
     }
 }
 
+   
