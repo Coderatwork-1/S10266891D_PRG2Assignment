@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Programming_II_Assignment;
-//=============================================================
+//=========================================
 // Student Number: S10266891D
 // Student Name: Sakthivel Murugan Pranesh
 // Partner Name: Kamalkannan Kavin Balaji
-//=============================================================
+//========================================+
+
+namespace S102266891D_PRG2Assignment
+{
     public class Flight
     {
         public string FlightNumber { get; set; }
@@ -40,7 +41,6 @@ namespace Programming_II_Assignment;
         }
     }
 
-    //DDJBFLight
     class DDJBFlight : Flight
     {
         public DDJBFlight(string fn, string ori, string dest, DateTime et)
@@ -61,8 +61,6 @@ namespace Programming_II_Assignment;
         }
     }
 
-
-    // LWTTFFight
     class LWTTFlight : Flight
     {
         public LWTTFlight(string fn, string ori, string dest, DateTime et)
@@ -83,7 +81,6 @@ namespace Programming_II_Assignment;
         }
     }
 
-    // NormalFlight
     class NormalFlight : Flight
     {
         public NormalFlight(string fn, string ori, string dest, DateTime et)
@@ -103,7 +100,6 @@ namespace Programming_II_Assignment;
         }
     }
 
-    // CFFTFLight
     class CFFTFlight : Flight
     {
         public CFFTFlight(string fn, string ori, string dest, DateTime et)
@@ -124,4 +120,5 @@ namespace Programming_II_Assignment;
         }
     }
 }
+
 
