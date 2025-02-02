@@ -10,26 +10,34 @@ namespace Programming_II_Assignment;
 // Student Name: Sakthivel Murugan Pranesh
 // Partner Name: Kamalkannan Kavin Balaji
 //=============================================================
-public class BoardingGate
-{
-    public string GateName { get; set; }
-    public bool SupportsDDJB { get; set; }
-    public bool SupportsCFFT { get; set; }
-    public bool SupportsLWTT { get; set; }
-    public string AssignedFlight { get; set; }
-
-    public BoardingGate(string gateName, bool supportsDDJB, bool supportsCFFT, bool supportsLWTT)
+    class BoardingGate
     {
-        GateName = gateName;
-        SupportsDDJB = supportsDDJB;
-        SupportsCFFT = supportsCFFT;
-        SupportsLWTT = supportsLWTT;
-    }
+        public string GateName { get; set; }
+        public bool SupportsCFFT { get; set; }
+        public bool SupportsDDJB { get; set; }
+        public bool SupportsLWTT { get; set; }
+        public Flight Flight { get; set; }
 
-    public override string ToString()
-    {
-        return $"{GateName}\t{SupportsDDJB}\t{SupportsCFFT}\t{SupportsLWTT}\t{AssignedFlight ?? "None"}";
+        public BoardingGate(string gateName, bool supportsCFFT, bool supportsDDJB, bool supportsLWTT)
+        {
+            GateName = gateName;
+            SupportsCFFT = supportsCFFT;
+            SupportsDDJB = supportsDDJB;
+            SupportsLWTT = supportsLWTT;
+        }
+
+        public double CalculateFees()
+        {
+            return Flight?.CalculateFees() ?? 0;
+        }
+
+        public override string ToString()
+        {
+            return "Gate: " + GateName +
+                "\tSupports CFFT: " + SupportsCFFT +
+                "\tSupports DDJB: " + SupportsDDJB +
+                "\tSupports LWTT: " + SupportsLWTT;
+        }
+
     }
 }
-
-
