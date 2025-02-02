@@ -185,3 +185,34 @@ static void LoadFlights(Dictionary<string, Flight> flights, Dictionary<string, A
     }
 }
 
+static void ListFlightsInformation(Dictionary<string, Flight> flights, Dictionary<string, Airline> airlineDictionary)
+{
+    Console.WriteLine("==================================================");
+    Console.WriteLine("List of Flights for Changi Airport Terminal 5");
+    Console.WriteLine("==================================================");
+    Console.WriteLine("{0,-16} {1,-20} {2,-20} {3,-25} {4,-10}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
+
+    foreach (var flight in flights.Values)
+    {
+        string airlineCode = flight.FlightNumber.Substring(0, 2);
+        string airlineName = airlineDictionary.ContainsKey(airlineCode) ? airlineDictionary[airlineCode].Name : "Unknown Airline";
+        string formattedTime = flight.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt");
+
+        Console.WriteLine("{0,-16} {1,-20} {2,-20} {3,-25} {4,-10}",
+            flight.FlightNumber, airlineName, flight.Origin, flight.Destination, formattedTime);
+    }
+
+    Console.WriteLine("==================================================");
+}
+
+
+static void ListBoardingGates(Dictionary<string, BoardingGate> boardingGates)
+{
+    Console.WriteLine("==================================================\r\nList of Boarding Gates for Changi Airport Terminal 5\r\n==================================================");
+    Console.WriteLine("{0,-12} {1,-8} {2,-8} {3,-8}", "Gate Name", "DDJB", "CFFT", "LWTT");
+    foreach (var gate in boardingGates.Values)
+    {
+        Console.WriteLine("{0,-12} {1,-8} {2,-8} {3,-8}",
+            gate.GateName, gate.SupportsDDJB ? "True" : "False", gate.SupportsCFFT ? "True" : "False", gate.SupportsLWTT ? "True" : "False");
+    }
+}
