@@ -303,3 +303,9 @@ static void CreateFlight(Dictionary<string, Flight> flights)
 
             Console.WriteLine($"Flight {flightNumber} successfully created!");
         }
+        else
+{
+    Console.WriteLine("Invalid date format.");
+}
+
+        
