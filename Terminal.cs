@@ -1,22 +1,27 @@
-namespace Programming_II_Assignment;
-//=============================================================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//=========================================
 // Student Number: S10266891D
 // Student Name: Sakthivel Murugan Pranesh
 // Partner Name: Kamalkannan Kavin Balaji
-//=============================================================
-public class Terminal
+//=========================================
+
+namespace S102266891D_PRG2Assignment
 {
- public string TerminalNm { get; set; }
+    public class Terminal
+    {
+        public string TerminalName { get; set; }
         public Dictionary<string, Airline> Airlines { get; private set; } = new Dictionary<string, Airline>();
         public Dictionary<string, Flight> Flights { get; private set; } = new Dictionary<string, Flight>();
         public Dictionary<string, BoardingGate> BoardingGates { get; private set; } = new Dictionary<string, BoardingGate>();
         public Dictionary<string, double> GateFees { get; private set; } = new Dictionary<string, double>();
 
-        public Terminal(string terminalNm)
+        public Terminal(string terminalName)
         {
-            TerminalNm = terminalNm
-                
-                
+            TerminalName = terminalName;
         }
 
         public bool AddAirline(Airline airline)
@@ -77,5 +82,4 @@ public class Terminal
         }
     }
 }
-
-
+    
